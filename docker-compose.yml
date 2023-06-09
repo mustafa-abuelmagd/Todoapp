@@ -1,0 +1,18 @@
+version: '3'
+services:
+  # first, we define the three mongo servers that will act as replicas
+  # here, we steup the hostname ports, and startup command
+  # which is the same as discussed in the previous section
+  mongo1:
+    build: ./mongodb_rs
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: todoapp
+      MONGO_REPLICA_HOST: localhost
+      MONGO_REPLICA_PORT: 27017
+
+    ports:
+      - '27017:27017'
+
