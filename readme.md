@@ -1,4 +1,3 @@
-Copy code
 # Todo App
 
 This is a simple todo app built with Express.js for the API (backend), Prisma.js for the ORM, and MongoDB for the database.
