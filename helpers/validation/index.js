@@ -50,10 +50,6 @@ module.exports = {
     todoSchema: {
         type: 'object',
         properties: {
-            userId: {
-                type: 'string',
-                minLength: 2
-            },
             name: {
                 type: 'string',
                 minLength: 2
@@ -63,6 +59,6 @@ module.exports = {
                 minLength: 2
             }
         },
-        required: ['userId', 'name'],
+        required: [ 'name'],
     }
 }
