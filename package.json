@@ -2,8 +2,11 @@
   "name": "todo-task",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon dist/app.js",
+    "start-ts": "nodemon app.ts",
+    "build": "npx tsc"
   },
   "dependencies": {
     "@prisma/client": "^4.15.0",
@@ -24,12 +27,16 @@
     "mongoose": "^7.1.1",
     "moongose": "^1.0.0",
     "morgan": "~1.9.1",
-    "nodemon": "^2.0.22",
     "pug": "2.0.0-beta11",
     "uniqid": "^5.4.0"
   },
   "devDependencies": {
     "@types/bcrypt-nodejs": "^0.0.31",
-    "prisma": "^4.15.0"
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.2.6",
+    "nodemon": "^2.0.22",
+    "prisma": "^4.15.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.3"
   }
 }
