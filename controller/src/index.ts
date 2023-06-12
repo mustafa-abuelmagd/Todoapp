@@ -1,16 +1,16 @@
-import express, {Request, Response, NextFunction, Router } from 'express';
-
-const _ = require('lodash');
-
-const UserService = require('../../services/core/UserService');
-const crypto = require('../../helpers/crypto')
-const BaseService = require("../../services/BaseService");
-const {BUSINESS_ERROR_MSG} = require("./../../helpers/errors")
+import express, {Request, Response, NextFunction} from 'express';
+import * as _ from 'lodash';
+import {UserService} from '../../services/core/UserService';
+import {Utils as crypto} from '../../helpers/crypto'
+import {BaseService} from "../../services/BaseService";
+const {BUSINESS_ERROR_MSG} = require("./../../helpers/errors/Errors")
 import {BusinessError} from '../../helpers/errors/Errors';
-import {SignUpSchema, loginSchema} from "../../helpers/validation";
-const BaseController = require("../BaseController");
-const router = Router()
+import {SignUpSchema, loginSchema} from "../../helpers/validation/index";
+import {BaseController} from "../BaseController";
 
+const router = express.Router();
+
+const _UserService = new UserService();
 
 router.post('/signUp', async (req, res, next) => {
     try {
@@ -25,11 +25,11 @@ router.post('/signUp', async (req, res, next) => {
             );
         }
         let user;
-        user = await UserService.signUp(data);
+        user = await _UserService.signUp(data);
         console.log(user)
         const response = {
-            id: user.id,
-            token: user.token
+            id: user?.id,
+            token: user?.token
         };
         res.send(response);
     } catch (err) {
@@ -55,7 +55,7 @@ router.post('/login', async (req, res, next) => {
         } = req.body;
 
         let emailRegex = new RegExp(email, 'i');
-        let User = await UserService.getUserByEmail(email)
+        let User = await _UserService.getUserByEmail(email)
         if (!User) {
             throw new BusinessError(
                 BUSINESS_ERROR_MSG.AUTHENTICATION_FAIL.CODE,

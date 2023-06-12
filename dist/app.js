@@ -12,9 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.server = exports.Server = void 0;
 const express_1 = __importDefault(require("express"));
 const http_1 = __importDefault(require("http"));
-const config_1 = require("./config");
+const index_1 = require("./config/index");
 class Server {
     constructor(_config) {
         this.config = _config;
@@ -24,9 +25,9 @@ class Server {
     preInitialize() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const expressRouter = require('./routes/index');
-                const expressConfig = require('./config/express');
-                expressConfig(this.app, expressRouter, this.config);
+                const { Router } = require('./routes/index');
+                const { expressConfig } = require('./config/express');
+                expressConfig(this.app, Router, this.config);
             }
             catch (e) {
                 console.log(e);
@@ -58,12 +59,13 @@ class Server {
                 this.server.listen(this.config.port);
             });
             const info = this.server.address();
-            console.log(`Running API server at ${info.address}:${info.port} on ${config_1.config.NODE_ENV}`);
+            console.log(`Running API server at ${info.address}:${info.port} on ${index_1.config.NODE_ENV}`);
         });
     }
 }
-const server = new Server(config_1.config);
+exports.Server = Server;
+exports.server = new Server(index_1.config);
 if (!module.parent) {
-    server.start();
+    exports.server.start();
 }
-module.exports = server;
+// module.exports = server

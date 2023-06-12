@@ -1,7 +1,7 @@
-const BUSINESS_ERROR_MSG = require('./business-err-msgs');
-const TECHNICAL_ERROR_MSG = require('./tech-err-msgs');
+import {BUSINESS_ERROR_MSG} from './business-err-msgs';
+import {TECHNICAL_ERROR_MSG} from './tech-err-msgs';
 
-module.exports = {
+export  {
     BUSINESS_ERROR_MSG,
     TECHNICAL_ERROR_MSG
 };

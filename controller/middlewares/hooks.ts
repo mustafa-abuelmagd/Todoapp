@@ -10,6 +10,7 @@ const {
 
 export const hooks= (req: Request, res: Response, next: NextFunction) => {
     req.validate = (schema: validationSchema, data: any, strict = true) => {
+        // @ts-ignore
         const ajv = new Ajv();
         const nSchema: validationSchema = schema;
         // if (!strict) {

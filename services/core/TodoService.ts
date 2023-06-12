@@ -1,9 +1,9 @@
 const {PrismaClient} = require('@prisma/client');
 const prisma = new PrismaClient();
-const ERRORS = require('../../helpers/errors/Errors')
-const BaseService = require("../BaseService");
-const {BusinessError} = require("../../helpers/errors/Errors");
-const {BUSINESS_ERROR_MSG} = require("../../helpers/errors");
+// import * as ERRORS from '../../helpers/errors/Errors'
+import {BaseService} from "../BaseService";
+import {BusinessError} from "../../helpers/errors/Errors";
+import {BUSINESS_ERROR_MSG} from "../../helpers/errors/index";
 
 type TodoType = { name: string, is_done: boolean, details: string }
 
@@ -53,7 +53,7 @@ export class TodoService extends BaseService {
         }
     }
 
-    async getTodoById(UserId: string, id: string) {
+    async getTodoById(UserId: string | undefined, id: string) {
         try {
             let res = await prisma.todo.findMany({
                 where: {
@@ -77,7 +77,7 @@ export class TodoService extends BaseService {
         }
     }
 
-    async updateTodoById(UserId: string, id: string, updatedTodo: TodoType) {
+    async updateTodoById(UserId: string | undefined, id: string, updatedTodo: TodoType) {
         try {
             let res = await prisma.todo.updateMany({
                 where: {
@@ -106,7 +106,7 @@ export class TodoService extends BaseService {
         }
     }
 
-    async deleteOneById(id: string, UserId: string) {
+    async deleteOneById(id: string, UserId: string | undefined) {
         try {
 
             let res = await prisma.todo.deleteMany({

@@ -9,4 +9,3 @@ class BaseController {
     }
 }
 exports.BaseController = BaseController;
-// module.exports = BaseController;

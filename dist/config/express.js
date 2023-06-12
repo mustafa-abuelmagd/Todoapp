@@ -3,20 +3,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.expressConfig = void 0;
+// import {Router} from '../routes';
 const body_parser_1 = __importDefault(require("body-parser"));
-const cors = require('cors');
-const devLogger = require('morgan');
 const Errors_1 = require("../helpers/errors/Errors");
-module.exports = (app, router, config) => {
-    app.use(cors());
+const expressConfig = (app, Router, config) => {
+    // app.use(cors({
+    //     origin: '*',
+    //     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    // }));
     app.use(body_parser_1.default.json({ limit: '10mb' }));
     app.use(body_parser_1.default.urlencoded({
         limit: '10mb',
         extended: true,
     }));
-    // @ts-ignore
-    const Router = new router(app, config);
-    Router.initialize();
+    const __Router = new Router(app, config);
+    __Router.initialize();
     // catch 404 and forwarding to error handler
     app.use((req, res, next) => {
         const err = new Errors_1.NotFoundError();
@@ -43,3 +45,4 @@ module.exports = (app, router, config) => {
         res.json(payload);
     });
 };
+exports.expressConfig = expressConfig;

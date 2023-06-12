@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TECHNICAL_ERROR_MSG = void 0;
 const err_codes_1 = require("./err-codes");
-module.exports = {
+exports.TECHNICAL_ERROR_MSG = {
     MODEL_NOT_REGISTERED: {
         NAME: 'MODEL_NOT_REGISTERED',
         CODE: 4,

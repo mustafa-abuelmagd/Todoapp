@@ -2,7 +2,7 @@
   "name": "todo-task",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "start": "nodemon dist/app.js",
     "start-ts": "nodemon app.ts",
@@ -32,8 +32,12 @@
   },
   "devDependencies": {
     "@types/bcrypt-nodejs": "^0.0.31",
+    "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
+    "@types/lodash": "^4.14.195",
+    "@types/morgan": "^1.9.4",
     "@types/node": "^20.2.6",
+    "@types/uniqid": "^5.3.2",
     "nodemon": "^2.0.22",
     "prisma": "^4.15.0",
     "ts-node": "^10.9.1",

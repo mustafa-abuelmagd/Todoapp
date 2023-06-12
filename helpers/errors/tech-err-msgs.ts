@@ -1,6 +1,6 @@
 import {HTTP_CODES} from './err-codes';
 
-module.exports = {
+export const TECHNICAL_ERROR_MSG = {
     MODEL_NOT_REGISTERED: {
         NAME: 'MODEL_NOT_REGISTERED',
         CODE: 4,

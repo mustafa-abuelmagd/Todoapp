@@ -6,7 +6,7 @@ import {
     BusinessError
 } from '../helpers/errors/Errors';
 
-class BaseService {
+export class BaseService {
     UnauthenticatedError?: UnauthenticatedError;
     UnauthorizedError?: UnauthorizedError;
     NotFoundError?: NotFoundError;
@@ -23,4 +23,3 @@ class BaseService {
     }
 }
 
-module.exports = BaseService;

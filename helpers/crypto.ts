@@ -1,8 +1,9 @@
-const bcrypt = require('bcrypt-nodejs');
-const uniqid = require('uniqid');
-const jwt = require('jsonwebtoken');
+import * as bcrypt from 'bcrypt-nodejs';
+// import {uniqid} from 'uniqid';
+import * as jwt from 'jsonwebtoken';
 
-const config = require('../config');
+import {config} from '../config/index';
+import {JwtPayload} from "jsonwebtoken";
 
 export class Utils {
     static createHash(text: string) {
@@ -26,11 +27,12 @@ export class Utils {
         }
     }
 
-    static verifyToken(token: string) {
+    static verifyToken(token: string): Promise<JwtPayload> {
         return new Promise((resolve, reject) => {
-            jwt.verify(token, config.auth.local.key, undefined, function (err: Error, decoded: string) {
+            // @ts-ignore
+            jwt.verify(token, config.auth.local.key, function (err: Error, decoded: JwtPayload) {
                 if (!err) {
-                    return resolve(decoded);
+                    return resolve(decoded as JwtPayload);
                 }
                 if (err.name === 'TokenExpiredError') {
                     err.message = 'Token has been expired...';

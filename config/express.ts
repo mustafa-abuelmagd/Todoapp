@@ -1,11 +1,11 @@
 import express, {Application, Request, Response, NextFunction} from 'express';
-import {Router} from '../routes';
+// import {Router} from '../routes';
 
 
 import bodyParser from 'body-parser';
 
-const cors = require('cors');
-const devLogger = require('morgan');
+import * as cors from 'cors';
+import * as devLogger from 'morgan';
 
 import {
     UnauthenticatedError,
@@ -16,10 +16,14 @@ import {
     BaseError
 } from '../helpers/errors/Errors';
 import {configType} from "./config.dev";
+import {Router as _Router} from "../routes/index";
 
-module.exports = (app: Application, router: any, config: configType) => {
+export const expressConfig = (app: Application, Router: any, config: configType) => {
 
-    app.use(cors());
+    // app.use(cors({
+    //     origin: '*',
+    //     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    // }));
     app.use(bodyParser.json({limit: '10mb'}));
     app.use(bodyParser.urlencoded({
         limit: '10mb',
@@ -27,8 +31,8 @@ module.exports = (app: Application, router: any, config: configType) => {
     }));
 
 
-    const Router = new router(app, config);
-    Router.initialize();
+    const __Router = new Router(app, config);
+    __Router.initialize();
     // catch 404 and forwarding to error handler
     app.use((req: Request, res: Response, next: Function): void => {
         const err = new NotFoundError();

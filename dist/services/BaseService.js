@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BaseService = void 0;
 const Errors_1 = require("../helpers/errors/Errors");
 class BaseService {
     constructor() {
@@ -10,4 +11,4 @@ class BaseService {
         this.BusinessError = new Errors_1.BusinessError;
     }
 }
-module.exports = BaseService;
+exports.BaseService = BaseService;

@@ -13,15 +13,8 @@ export interface ErrnoException extends Error {
     port?: number;
 }
 
-import {config} from './config';
-import {
-    UnauthenticatedError,
-    UnauthorizedError,
-    NotFoundError,
-    ValidationError,
-    BusinessError,
-    BaseError
-} from './helpers/errors/Errors';
+import {config} from './config/index';
+
 import {configType} from "./config/config.dev";
 
 // import * as express from 'express'
@@ -35,7 +28,7 @@ type ServerType = {
 
 }
 
-class Server {
+export class Server {
     server: any;
     config: configType;
     app: Application;
@@ -49,9 +42,10 @@ class Server {
 
     async preInitialize() {
         try {
-            const expressRouter = require('./routes/index');
-            const expressConfig = require('./config/express');
-            expressConfig(this.app, expressRouter, this.config);
+            const {Router} = require('./routes/index');
+            const {expressConfig} = require('./config/express');
+
+            expressConfig(this.app, Router, this.config);
 
         } catch (e) {
             console.log(e);
@@ -91,9 +85,9 @@ class Server {
 
 }
 
-const server: Server = new Server(config)
+export const server: Server = new Server(config)
 if (!module.parent) {
     server.start();
 }
-module.exports = server
+// module.exports = server
 

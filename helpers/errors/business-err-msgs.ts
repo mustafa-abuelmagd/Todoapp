@@ -1,6 +1,6 @@
-const HTTP_CODES = require('./err-codes');
+import {HTTP_CODES} from './err-codes.js';
 
-module.exports = {
+export const BUSINESS_ERROR_MSG = {
     API: {
         NOT_FOUND: {
             NAME: 'NOT_FOUND',

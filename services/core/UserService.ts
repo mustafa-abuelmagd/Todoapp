@@ -1,13 +1,18 @@
-const {PrismaClient} = require('@prisma/client');
+import {PrismaClient} from '@prisma/client';
+
 const prisma = new PrismaClient();
-const crypto = require('../../helpers/crypto');
-const BaseService = require("../BaseService");
-const {BUSINESS_ERROR_MSG} = require("../../helpers/errors")
+import {Utils} from '../../helpers/crypto';
+import {BaseService} from "../BaseService";
+import {BUSINESS_ERROR_MSG} from "../../helpers/errors/index";
+import {BusinessError} from "../../helpers/errors/Errors";
+
 
 export class UserService extends BaseService {
+    constructor() {
+        super();
+    }
 
-
-    async getUserById(id: string) {
+    async getUserById(id: string | undefined) {
         try {
             const gottenUser = await prisma.user.findUnique({
                 where: {
@@ -16,7 +21,7 @@ export class UserService extends BaseService {
             });
             return gottenUser;
         } catch (e) {
-            throw new this.BusinessError(
+            throw new BusinessError(
                 BUSINESS_ERROR_MSG.USERS.USER_NOT_FOUND.CODE,
                 BUSINESS_ERROR_MSG.USERS.USER_NOT_FOUND.NAME,
                 BUSINESS_ERROR_MSG.USERS.USER_NOT_FOUND.STATUS,
@@ -35,7 +40,7 @@ export class UserService extends BaseService {
             if (gottenUser) {
                 return gottenUser;
             } else {
-                throw new this.BusinessError(
+                throw new BusinessError(
                     BUSINESS_ERROR_MSG.USERS.USER_NOT_FOUND.CODE,
                     BUSINESS_ERROR_MSG.USERS.USER_NOT_FOUND.NAME,
                     BUSINESS_ERROR_MSG.USERS.USER_NOT_FOUND.STATUS,
@@ -57,7 +62,7 @@ export class UserService extends BaseService {
                     }
                 });
                 if (User) {
-                    throw new this.BusinessError(
+                    throw new BusinessError(
                         BUSINESS_ERROR_MSG.USERS.DUPLICATE_USER.CODE,
                         BUSINESS_ERROR_MSG.USERS.DUPLICATE_USER.NAME,
                         BUSINESS_ERROR_MSG.USERS.DUPLICATE_USER.STATUS,
@@ -67,12 +72,13 @@ export class UserService extends BaseService {
                     data: {
                         "name": reqData.name,
                         "email": reqData.email,
-                        "password": crypto.createHash(reqData.password),
-                        "token": crypto.generateJwtToken({sub: reqData.email}),
+                        "password": Utils.createHash(reqData.password),
+                        "token": Utils.generateJwtToken(reqData.email),
                     },
                 });
                 if (newUser) {
                     console.log(newUser)
+                    // @ts-ignore
                     delete newUser.password;
                     return newUser;
                 }
@@ -83,7 +89,6 @@ export class UserService extends BaseService {
     }
 }
 
-module.exports = new UserService();
 
 
 

@@ -12,16 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TodoService = void 0;
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const ERRORS = require('../../helpers/errors/Errors');
-const BaseService = require("../BaseService");
-const { BusinessError } = require("../../helpers/errors/Errors");
-const { BUSINESS_ERROR_MSG } = require("../../helpers/errors");
-class TodoService extends BaseService {
+// import * as ERRORS from '../../helpers/errors/Errors'
+const BaseService_1 = require("../BaseService");
+const Errors_1 = require("../../helpers/errors/Errors");
+const index_1 = require("../../helpers/errors/index");
+class TodoService extends BaseService_1.BaseService {
     createTodo(todo, userId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 if (!userId)
-                    throw new BusinessError(BUSINESS_ERROR_MSG.USERS.USER_NOT_FOUND.CODE, BUSINESS_ERROR_MSG.USERS.USER_NOT_FOUND.NAME, BUSINESS_ERROR_MSG.USERS.USER_NOT_FOUND.STATUS, BUSINESS_ERROR_MSG.USERS.USER_NOT_FOUND.MSG);
+                    throw new Errors_1.BusinessError(index_1.BUSINESS_ERROR_MSG.USERS.USER_NOT_FOUND.CODE, index_1.BUSINESS_ERROR_MSG.USERS.USER_NOT_FOUND.NAME, index_1.BUSINESS_ERROR_MSG.USERS.USER_NOT_FOUND.STATUS, index_1.BUSINESS_ERROR_MSG.USERS.USER_NOT_FOUND.MSG);
                 const ToDo = yield prisma.todo.create({
                     data: {
                         name: todo.name,
@@ -73,7 +73,7 @@ class TodoService extends BaseService {
                 }
                 else {
                     if (!UserId)
-                        throw new BusinessError(BUSINESS_ERROR_MSG.DEFAULT_VALIDATION_ERROR.CODE, BUSINESS_ERROR_MSG.DEFAULT_VALIDATION_ERROR.NAME, BUSINESS_ERROR_MSG.DEFAULT_VALIDATION_ERROR.STATUS, BUSINESS_ERROR_MSG.DEFAULT_VALIDATION_ERROR.MSG);
+                        throw new Errors_1.BusinessError(index_1.BUSINESS_ERROR_MSG.DEFAULT_VALIDATION_ERROR.CODE, index_1.BUSINESS_ERROR_MSG.DEFAULT_VALIDATION_ERROR.NAME, index_1.BUSINESS_ERROR_MSG.DEFAULT_VALIDATION_ERROR.STATUS, index_1.BUSINESS_ERROR_MSG.DEFAULT_VALIDATION_ERROR.MSG);
                 }
             }
             catch (err) {
@@ -99,7 +99,7 @@ class TodoService extends BaseService {
                     return this.getTodoById(UserId, id);
                 }
                 else {
-                    throw new BusinessError(BUSINESS_ERROR_MSG.TODOS.TODO_NOT_FOUND.CODE, BUSINESS_ERROR_MSG.TODOS.TODO_NOT_FOUND.NAME, BUSINESS_ERROR_MSG.TODOS.TODO_NOT_FOUND.STATUS, BUSINESS_ERROR_MSG.TODOS.TODO_NOT_FOUND.MSG);
+                    throw new Errors_1.BusinessError(index_1.BUSINESS_ERROR_MSG.TODOS.TODO_NOT_FOUND.CODE, index_1.BUSINESS_ERROR_MSG.TODOS.TODO_NOT_FOUND.NAME, index_1.BUSINESS_ERROR_MSG.TODOS.TODO_NOT_FOUND.STATUS, index_1.BUSINESS_ERROR_MSG.TODOS.TODO_NOT_FOUND.MSG);
                 }
             }
             catch (err) {
@@ -120,7 +120,7 @@ class TodoService extends BaseService {
                     return "Item deleted";
                 }
                 else {
-                    throw new BusinessError(BUSINESS_ERROR_MSG.TODOS.TODO_NOT_FOUND.CODE, BUSINESS_ERROR_MSG.TODOS.TODO_NOT_FOUND.NAME, BUSINESS_ERROR_MSG.TODOS.TODO_NOT_FOUND.STATUS, BUSINESS_ERROR_MSG.TODOS.TODO_NOT_FOUND.MSG);
+                    throw new Errors_1.BusinessError(index_1.BUSINESS_ERROR_MSG.TODOS.TODO_NOT_FOUND.CODE, index_1.BUSINESS_ERROR_MSG.TODOS.TODO_NOT_FOUND.NAME, index_1.BUSINESS_ERROR_MSG.TODOS.TODO_NOT_FOUND.STATUS, index_1.BUSINESS_ERROR_MSG.TODOS.TODO_NOT_FOUND.MSG);
                 }
             }
             catch (err) {
